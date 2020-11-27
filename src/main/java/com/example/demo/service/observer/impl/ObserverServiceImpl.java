@@ -4,6 +4,7 @@ import com.example.demo.service.observer.ObserverService;
 import com.example.demo.service.observer.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class ObserverServiceImpl<T> implements ObserverService {
      * 提交审核
      */
     @Override
+    @Transactional
     public Boolean submitAudit() throws InstantiationException, IllegalAccessException {
         for (ProjectService projectService : list) {
             /*执行观察者方法*/
