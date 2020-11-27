@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+    <select id="findUserById" resultType="com.example.demo.entity.User" parameterType="java.lang.Integer">
+        SELECT * FROM user WHERE id = #{id} AND is_valid = 1
+    </select>
+
+    <insert id="insertUser" parameterType="com.example.demo.vo.UserVO">
+        INSERT INTO user (user_name,address,phone,sex) VALUES (#{userName},#{address},#{phone},#{sex})
+    </insert>
+
+    <insert id="insertUserBatch">
+        INSERT INTO user (user_name,address,phone,email,sex) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userName,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR},#{item.phone,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.sex,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <select id="findUserByKeyWord" resultType="com.example.demo.entity.User" parameterType="java.lang.String">
+        SELECT * FROM user WHERE email LIKE CONCAT('%',#{keyWord})
+    </select>
+</mapper>
