@@ -32,6 +32,7 @@ public class ObserverServiceImpl<T> implements ObserverService {
             /*执行观察者方法*/
             Class clazz = projectService.getEntityClass();
             T entity = (T)projectService.getEntity(clazz);
+            log.info("获取到的实体类为:{}",entity);
             projectService.insert(entity);
         }
         return true;
