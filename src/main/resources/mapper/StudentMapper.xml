@@ -31,11 +31,11 @@
     insert into student (id, name, height, 
       weight, age, address, 
       school_id, phone, stu_number, 
-      sex, is_valid)
+      sex)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{height,jdbcType=DECIMAL}, 
       #{weight,jdbcType=DECIMAL}, #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
       #{schoolId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{stuNumber,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=CHAR}, #{isValid,jdbcType=INTEGER})
+      #{sex,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.entity.Student" >
     insert into student

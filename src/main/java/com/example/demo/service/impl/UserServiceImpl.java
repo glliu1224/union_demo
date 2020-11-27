@@ -18,10 +18,6 @@ import java.util.concurrent.*;
 @Service
 public class UserServiceImpl extends Observer<UserVO> implements UserService {
 
-    public UserServiceImpl(BackLogServiceService backLog) {
-        backLog.add(this);
-    }
-
     BlockingQueue queue = new ArrayBlockingQueue(5);
     Executor executor = new ThreadPoolExecutor(4,4, 5,TimeUnit.MILLISECONDS,queue);
 

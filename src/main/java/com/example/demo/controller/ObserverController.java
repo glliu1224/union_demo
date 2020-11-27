@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.observer.ObserverService;
+import com.example.demo.service.observer.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +15,8 @@ public class ObserverController {
     @Autowired
     private ObserverService observerService;
 
-    @PostMapping("/insert")
-    public void insert() {
-        observerService.insertStudentAndUser();
+    @GetMapping("/getClass")
+    public Boolean getThereClass() throws IllegalAccessException, InstantiationException {
+        return observerService.submitAudit();
     }
 }
