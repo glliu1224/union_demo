@@ -18,12 +18,6 @@ public class ObserverServiceImpl<T> implements ObserverService {
 
     List<ProjectService> list = new LinkedList<>();
 
-    public ObserverServiceImpl(List<ProjectService> projectServices) {
-        for (ProjectService projectService : projectServices) {
-            list.add(projectService);
-        }
-    }
-
     /**
      * 提交审核
      */
@@ -37,6 +31,12 @@ public class ObserverServiceImpl<T> implements ObserverService {
             log.info("获取到的实体类为:{}",entity);
             projectService.insert(entity);
         }
+        /*此处可执行相关业务逻辑代码*/
         return true;
+    }
+
+    @Override
+    public void add(ProjectService projectService) {
+        list.add(projectService);
     }
 }

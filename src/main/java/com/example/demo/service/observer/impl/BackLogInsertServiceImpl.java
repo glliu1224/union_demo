@@ -2,14 +2,18 @@ package com.example.demo.service.observer.impl;
 
 import com.example.demo.entity.BackLog;
 import com.example.demo.mapper.BackLogMapper;
+import com.example.demo.service.observer.ObserverService;
 import com.example.demo.service.observer.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 
 @Service("BackLogInsertServiceImpl")
 public class BackLogInsertServiceImpl implements ProjectService<BackLog>{
+
+    public BackLogInsertServiceImpl(ObserverService observerService) {
+        observerService.add(this);
+    }
 
     @Autowired
     private BackLogMapper backLogMapper;

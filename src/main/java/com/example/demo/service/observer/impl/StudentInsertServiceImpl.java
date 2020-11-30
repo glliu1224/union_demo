@@ -2,6 +2,7 @@ package com.example.demo.service.observer.impl;
 
 import com.example.demo.entity.Student;
 import com.example.demo.mapper.StudentMapper;
+import com.example.demo.service.observer.ObserverService;
 import com.example.demo.service.observer.ProjectService;
 import com.example.demo.utils.GeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,10 @@ import java.util.Date;
 
 @Service("StudentInsertServiceImpl")
 public class StudentInsertServiceImpl implements ProjectService<Student>{
+
+    public StudentInsertServiceImpl(ObserverService observerService) {
+        observerService.add(this);
+    }
 
     @Autowired
     private StudentMapper studentMapper;
