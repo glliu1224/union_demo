@@ -43,7 +43,6 @@ public class StudentInsertServiceImpl implements ProjectService<Student>{
         student.setStuNumber(GeneratorUtil.getStuNum());
         student.setSex(GeneratorUtil.getSex());
         student.setCreateTime(new Date());
-
         return student;
     }
 }
