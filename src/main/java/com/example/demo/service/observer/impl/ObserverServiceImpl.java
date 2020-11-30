@@ -24,6 +24,7 @@ public class ObserverServiceImpl<T> implements ObserverService {
     @Override
     @Transactional
     public Boolean submitAudit() throws InstantiationException, IllegalAccessException {
+        long l = System.currentTimeMillis();
         for (ProjectService projectService : list) {
             /*执行观察者方法*/
             Class clazz = projectService.getEntityClass();
@@ -32,6 +33,8 @@ public class ObserverServiceImpl<T> implements ObserverService {
             projectService.insert(entity);
         }
         /*此处可执行相关业务逻辑代码*/
+        long l1 = System.currentTimeMillis();
+        log.info("业务方法执行耗时:{}毫秒",l1 - l);
         return true;
     }
 
