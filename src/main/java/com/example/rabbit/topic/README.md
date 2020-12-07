@@ -1,0 +1,3 @@
+#RabbitMQ的Topic模式
+1、topic模式相对于routingKey模式，在进行routingKey匹配的时候，多了一个通配符，例如路由模式交换机与队列匹配只能通过routingKey=china.hubei.wuhan的方式，而topic模式可以通过统配的模式china.#来使交换机与队列进行匹配，同时，在创建交换机与队列的时候，需要将队列与交换机绑定，并且在绑定的时候指定routingKey规则  
+2、topic在实际开发中，应用场景微博博主给粉丝推送消息、给关注自己的粉丝推送消息
