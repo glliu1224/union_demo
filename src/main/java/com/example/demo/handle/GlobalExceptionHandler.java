@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
             res.setCode(((BusinessException) e).getCode());
             res.setMessage(e.getMessage());
         } else {
-            log.info(e.getMessage());
+            e.printStackTrace();
             res.setCode(CodeEnum.SYS_ERROR.getCode());
             res.setMessage(CodeEnum.SYS_ERROR.getMessgae());
         }

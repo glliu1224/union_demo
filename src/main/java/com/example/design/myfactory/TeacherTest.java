@@ -7,5 +7,6 @@ public class TeacherTest {
 
         Teacher teacher = TeacherFactory.getTeacher(TeacherEnum.CHINESE.getClazz());
         teacher.teach();
+        teacher.speak("开始上课");
     }
 }

@@ -20,4 +20,12 @@
     <select id="findUserByKeyWord" resultType="com.example.demo.entity.User" parameterType="java.lang.String">
         SELECT * FROM user WHERE email LIKE CONCAT('%',#{keyWord})
     </select>
+
+    <select id="findUserByLength" resultType="com.example.demo.vo.UserVO">
+        SELECT * FROM user WHERE id <![CDATA[ >= ]]> #{start} AND id <![CDATA[ < ]]> #{end} AND LENGTH(substring_index(email,'@',1)) <![CDATA[ >= ]]> 12 AND LENGTH(substring_index(email,'@',1)) <![CDATA[ <= ]]> 15
+    </select>
+
+    <select id="findCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM user WHERE is_valid = 1
+    </select>
 </mapper>

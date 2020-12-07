@@ -16,4 +16,8 @@ public interface UserMapper {
     void insertUserBatch(@Param("list") List<UserVO> list);
 
     List<User> findUserByKeyWord(@Param("keyWord") String keyWord);
+
+    List<UserVO> findUserByLength(@Param("start") int start,@Param("end") int end);
+
+    int findCount();
 }
