@@ -18,7 +18,6 @@ import com.example.design.observer.impl.CCTV;
 import com.example.design.observer.impl.HNTV;
 import com.example.design.observer.impl.SDTV;
 import com.example.design.proxy.ICoder;
-import com.example.design.proxy.impl.CoderProxy;
 import com.example.design.proxy.impl.JavaCoder;
 
 import java.lang.reflect.InvocationHandler;

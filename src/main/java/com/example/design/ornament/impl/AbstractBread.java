@@ -25,7 +25,6 @@ public abstract class AbstractBread implements IBread{
     public void steamed() {
         this.bread.steamed();
     }
-
     @Override
     public void process() {
         prepair();
