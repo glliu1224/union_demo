@@ -6,7 +6,6 @@ import com.example.demo.task.QueryTask;
 import com.example.demo.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -20,7 +19,6 @@ public class ThreadServiceImpl implements ThreadService {
 
     BlockingQueue queue = new ArrayBlockingQueue(5);
 
-    Executor executor = new ThreadPoolExecutor(4,10,1, TimeUnit.MINUTES,queue);
     @Override
     public List<UserVO> getUser() throws ExecutionException, InterruptedException {
         int x = userMapper.findCount();
@@ -30,3 +28,4 @@ public class ThreadServiceImpl implements ThreadService {
         return userVOS;
     }
 }
+//557035933899224
