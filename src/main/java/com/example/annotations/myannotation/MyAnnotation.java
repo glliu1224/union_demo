@@ -1,0 +1,10 @@
+package com.example.annotations.myannotation;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MyAnnotation {
+
+    String[] value() default "unknown";
+}
