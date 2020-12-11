@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableCreator {
-
     public static String createTableSql(String className) throws ClassNotFoundException {
         Class<?> cl = Class.forName(className);
         DBTable dbTable = cl.getAnnotation(DBTable.class);
@@ -38,15 +37,19 @@ public class TableCreator {
                     }
                     //判断String类型
                     if (anns[0] instanceof SQLString) {
-                        SQLString sString = (SQLString) anns[0];
-                        if (sString.name().length() < 1) {
+                        SQLString sqlString = (SQLString) anns[0];
+                        if (sqlString.name().length() < 1) {
                             columnName = field.getName().toUpperCase();
                         } else {
-                            columnName = sString.name();
+                            columnName = sqlString.name();
                         }
-                        columnDefs.add(columnName + " VARCHAR(" +
-                                sString.value() + ")" +
-                                getConstraints(sString.constraint()));
+                        columnDefs.add(columnName + " VARCHAR("
+                                +
+                                sqlString.value()
+                                +
+                                ")"
+                                +
+                                getConstraints(sqlString.constraint()));
                     }
                 }
 
@@ -55,7 +58,6 @@ public class TableCreator {
                 for (String columnDef : columnDefs) {
                     createCommand.append("\n    " + columnDef + ",");
                 }
-
                 String tableCreate = createCommand.substring(
                         0, createCommand.length() - 1) + ");";
                 return tableCreate;
@@ -64,7 +66,6 @@ public class TableCreator {
         return null;
 
     }
-
     private static String getConstraints(Constraints con){
         String constraints = "";
         if(!con.allowNull())
@@ -79,8 +80,13 @@ public class TableCreator {
     public static void main(String[] args) throws ClassNotFoundException {
         String[] arg={"com.example.annotations.table.Member"};
         for(String className : arg) {
-            System.out.println("Table Creation SQL for " +
-                    className + " is :\n" + createTableSql(className));
+            System.out.println("Table Creation SQL for "
+                    +
+                    className
+                    +
+                    " is :\n"
+                    +
+                    createTableSql(className));
         }
     }
 
