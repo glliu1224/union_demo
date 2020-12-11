@@ -7,7 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+/**
+*@Description 全局异常处理类
+*@Author glliu
+*@Date 2020/12/11
+*/
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {

@@ -37,4 +37,10 @@ public class UserController {
         return userService.findUserByKeyWord(keyWord);
     }
 
+    @GetMapping("/exception")
+    public void exceptionTest() {
+        int i = 1 / 0;
+        System.out.println("上面有异常");
+    }
+
 }
