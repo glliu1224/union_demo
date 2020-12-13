@@ -8,6 +8,11 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 /**
  *@Description  Curator是一个Zookeeper的客户端框架，把平时使用Zookeeper服务开发功能做了封装，使用户使用Zookeeper的各种场景更加方便
  *              比如：Leader选举、分布式计数器、分布式锁、在会话重新连接，Watch反复注册、多种异常处理
@@ -20,11 +25,13 @@ public class CuratorTest {
     RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000,3);
 
     /*项目中使用，是否可以将client作为Bean交给Spring管理?*/
-    CuratorFramework client = CuratorFrameworkFactory.newClient(ZK_ADDRESS, retryPolicy);
+    public CuratorFramework client = CuratorFrameworkFactory.newClient(ZK_ADDRESS, retryPolicy);
 
     private static final String ZK_ADDRESS = "192.168.72.129:2181";
 
     private static String ZK_NODE = "/zk-node";
+
+    private CountDownLatch countDownLatch = new CountDownLatch(1);
 
     /**
      * 进行客户端服务器交互，第一步创建会话
@@ -74,7 +81,7 @@ public class CuratorTest {
         byte[] bytes1 = client.getData().forPath(ZK_NODE);
         log.info("更新前的数据:{}",new String(bytes1));
         //更新数据
-        client.setData().forPath(ZK_NODE, "15:49".getBytes());
+        client.setData().forPath(ZK_NODE, "17:28".getBytes());
         byte[] bytes = client.getData().forPath(ZK_NODE);
         log.info("获取到更新后的数据:{}", new String(bytes));
     }
@@ -121,4 +128,32 @@ public class CuratorTest {
             log.warn("节点已删除");
         }
     }
+
+    /**
+     * Curator中引入了BackgroundCallback接口，用来处理服务器端返回来的信息，处理过程是在异步线程中调用，默认在EventThread中调用，也可以自定义线程池
+     */
+    @Test
+    public void test() throws Exception {
+        client.getData().inBackground((first, second) -> {
+            log.info("backGround:{}", second);
+        }).forPath(ZK_NODE);
+        TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
+    }
+
+    /**
+     * 此方法待重新看
+     * @throws Exception
+     */
+    @Test
+    public void test2() throws Exception {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        client.getData().inBackground((first, second) -> {
+            log.info("backGround:{}", second);
+        },executorService).forPath(ZK_NODE);
+        TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
+    }
+
+    /**
+     * Curator监听器
+     */
 }
