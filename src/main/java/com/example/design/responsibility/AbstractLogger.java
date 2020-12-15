@@ -31,3 +31,14 @@ public abstract class AbstractLogger {
     abstract protected void write(String message);
 
 }
+
+/*
+* 03
+* 03
+* 01
+* 02
+* 04
+* 05
+* 02
+* 06
+* */

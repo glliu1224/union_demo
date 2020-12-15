@@ -14,7 +14,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- *@Description  Curator是一个Zookeeper的客户端框架，把平时使用Zookeeper服务开发功能做了封装，使用户使用Zookeeper的各种场景更加方便
+ *@Description  Curator是一个Zookeeper的客户端框架，把平时使用Zookeeper服务开发功能做了封装
+ *              使用户使用Zookeeper的各种场景更加方便
  *              比如：Leader选举、分布式计数器、分布式锁、在会话重新连接，Watch反复注册、多种异常处理
  *@Date 2020/12/13
  *@Author glliu
@@ -90,10 +91,10 @@ public class CuratorTest {
      * 删除节点
      * @throws Exception
      * @result 删除节点，成功执行
-     *
-     * guaranteed ：该函数的功能如字面意思一样，主要起到一个保障删除成功的作用，其底层工作方式是：只要客户端会话有效，就会在后台持续发出删除请求
-     *              知道该数据节点在Zookeeper服务端被删除
-     * deletingChildrenIfNeeded：指定了此函数后，系统在删除该节点的时候，会以递归的方式删除该节点的所有子节点，及其子节点的子节点
+     * guaranteed ：该函数的功能如字面意思一样，主要起到一个保障删除成功的作用，其底层工作方式是：
+     *              只要客户端会话有效，就会在后台持续发出删除请求知道该数据节点在Zookeeper服务端被删除
+     * deletingChildrenIfNeeded：指定了此函数后，系统在删除该节点的时候，会以递归的方式删除该节点的所有
+     *              子节点，及其子节点的子节点
      */
     @Test
     public void delData() throws Exception {
@@ -130,7 +131,8 @@ public class CuratorTest {
     }
 
     /**
-     * Curator中引入了BackgroundCallback接口，用来处理服务器端返回来的信息，处理过程是在异步线程中调用，默认在EventThread中调用，也可以自定义线程池
+     * Curator中引入了BackgroundCallback接口，用来处理服务器端返回来的信息，处理过程是在异步线程中调用，默认在
+     * EventThread中调用，也可以自定义线程池
      */
     @Test
     public void test() throws Exception {
