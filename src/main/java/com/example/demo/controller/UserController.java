@@ -43,4 +43,15 @@ public class UserController {
         System.out.println("上面有异常");
     }
 
+    @GetMapping("firstAop")
+    public String firstAop() {
+        this.secondAop();
+        return "first";
+    }
+
+    @GetMapping("secondAop")
+    public String secondAop() {
+        return "second";
+    }
+
 }
