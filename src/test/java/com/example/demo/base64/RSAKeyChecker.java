@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Random;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
@@ -63,5 +64,14 @@ public class RSAKeyChecker {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey publicKey = keyFactory.generatePublic(keySpec);
         return publicKey;
+    }
+
+    @Test
+    public void generatorRandom() {
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int x = random.nextInt(10);
+            System.out.println("获取到的随机数:" + x);
+        }
     }
 }

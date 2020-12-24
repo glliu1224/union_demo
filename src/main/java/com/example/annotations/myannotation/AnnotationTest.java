@@ -11,15 +11,15 @@ public class AnnotationTest {
         // 获取Person的Class实例
         Class<Person> c = Person.class;
         // 获取 somebody() 方法的Method实例
-        Method mSomebody = c.getMethod("somebody", new Class[]{String.class, int.class});
+        Method mSomebody = c.getMethod("somebody", String.class, int.class);
         // 执行该方法
-        mSomebody.invoke(person, new Object[]{"lily", 18});
+        mSomebody.invoke(person, "lily", 18);
         iteratorAnnotations(mSomebody);
 
         // 获取 somebody() 方法的Method实例
-        Method mEmpty = c.getMethod("empty", new Class[]{});
+        Method mEmpty = c.getMethod("empty");
         // 执行该方法
-        mEmpty.invoke(person, new Object[]{});
+        mEmpty.invoke(person);
         iteratorAnnotations(mEmpty);
     }
 

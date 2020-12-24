@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.GCEntity;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import com.example.demo.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -52,6 +54,15 @@ public class UserController {
     @GetMapping("secondAop")
     public String secondAop() {
         return "second";
+    }
+
+    @GetMapping("/gcTest")
+    public String gcTest() {
+        List<GCEntity> list = new LinkedList<>();
+        while (true) {
+            GCEntity gc = new GCEntity();
+            list.add(new GCEntity());
+        }
     }
 
 }

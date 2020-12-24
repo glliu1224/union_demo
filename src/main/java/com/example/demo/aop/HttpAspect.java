@@ -9,6 +9,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
 *@Description AOP切面类，交给spring管理
@@ -21,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 public class HttpAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpAspect.class);
+
+    ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     //配置切入点
     @Pointcut("execution(public * com.example.demo.controller.UserController.*(..))")
@@ -43,6 +48,18 @@ public class HttpAspect {
         logger.info("class={}", joinPoint.getSignature().getDeclaringType() + "." + joinPoint.getSignature().getName());
         //方法参数
         logger.info("args={}",joinPoint.getArgs());
+        //此处可以执行入库操作等
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                logger.info("入库操作完成");
+            }
+        });
     }
 
     //后置通知，在目标方法(切入点)执行之后执行
