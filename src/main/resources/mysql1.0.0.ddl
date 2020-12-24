@@ -39,3 +39,34 @@ CREATE TABLE `back_log` (
   `is_valid` int(2) DEFAULT '1' COMMENT '是否有效',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志表';
+
+
+--StudentDO表
+CREATE TABLE `student_do` (
+  `stu_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `grade` int(4) DEFAULT NULL,
+  `clazz` int(4) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phone` char(11) DEFAULT NULL,
+  `sex` int(2) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `stu_number` varchar(50) DEFAULT NULL,
+  `is_valid` int(2) NOT NULL DEFAULT '1',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`stu_id`),
+  KEY `name` (`name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=180001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--UserDO表
+CREATE TABLE `user_do` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(20) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_valid` int(10) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `userName` (`user_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=200001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

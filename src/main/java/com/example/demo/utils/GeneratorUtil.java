@@ -190,5 +190,22 @@ public class GeneratorUtil {
         return sb.toString();
     }
 
+    public static Integer getGradeOrClazz() {
+        Random random = new Random();
+        int i = random.nextInt(20);
+        return i + 1;
+    }
+
+    public static String getStuNumber(String prefix) {
+        String result = "";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            int i1 = random.nextInt(10);
+            sb.append(i1);
+        }
+        return prefix + sb.toString();
+    }
+
 
 }
