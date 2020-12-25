@@ -14,15 +14,19 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
 *@Description 响应数据全局处理，在使用时在每个controller方法中不必定义Result包装返回数据，
- *            此类将会拦截相应数据对相应数据进行包装
+ *            此类将会拦截响应数据对响应数据进行包装
 *@Author glliu
 *@Date 2020/12/25
 */
-
 @Slf4j
 @ControllerAdvice(basePackages = {"com.example.demo.controller"})
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
+    /**
+     * 注入此Bean是为了防止在响应String类型数据时，报错:Result cannot be cast to java.lang.String
+     * 防止Spring使用自带转换器将响应数据转换成json时报错
+     * @return
+     */
     @Bean
     public HttpMessageConverters custHttpMessageConverter() {
         return new HttpMessageConverters(new FastJsonHttpMessageConverter());
@@ -35,7 +39,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
     /**
-     *此处对返回数据做统一处理，在返回数据时，返回String类型数据会报错Result cannot be cast to java.lang.String
+     * 此处对返回数据做统一处理，在返回数据时，返回String类型数据会报错Result cannot be cast to java.lang.String
      * 原因是，如果接口返回的是String类型数据，Spring会使用StringHttpMessageConvert来处理返回体
      * 但是此处变成了Result.message,是一个对象，导致类型转换失败
      */
