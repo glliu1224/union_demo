@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.core.*;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public class RedisController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate = null;
 
-    @RequestMapping("/stringAndHash")
+    @PutMapping("/stringAndHash")
     public Map<String, Object> testStringAndHash(){
         redisTemplate.opsForValue().set("key1", "value1");
         //注意这里使用了 JDK 的序列化器 ,所以 Redis 保存时不是整数, 不能运算
@@ -45,7 +46,7 @@ public class RedisController {
         return map;
     }
 
-    @RequestMapping("/list")
+    @PutMapping("/list")
     public Map<String, Object> testList(){
         //链表从左到右的顺序为v10, v8, v6, v4, v2
         stringRedisTemplate.opsForList().leftPushAll("list1", "v2","v4","v6","v8","v10");
@@ -73,7 +74,7 @@ public class RedisController {
         return map;
     }
 
-    @RequestMapping("/set")
+    @PutMapping("/set")
     public Map<String, Object> testSet(){
         //重复的元素不会被插入
         stringRedisTemplate.opsForSet().add("set1", "v1","v1","v3","v5","v7","v9");
@@ -110,7 +111,7 @@ public class RedisController {
      * redis操作有序集合
      * @return
      */
-    @RequestMapping("/zset")
+    @PutMapping("/zset")
     public Map<String, Object> testZSet(){
         Set<ZSetOperations.TypedTuple<String>> typedTupleSet = new HashSet<>();
         for(int i=1; i<=9; i++){
@@ -165,7 +166,7 @@ public class RedisController {
         return map;
     }
 
-    @RequestMapping("/multi")
+    @PutMapping("/multi")
     public Map<String, Object> testMulti(){
         stringRedisTemplate.opsForValue().set("key1", "value1");
 
