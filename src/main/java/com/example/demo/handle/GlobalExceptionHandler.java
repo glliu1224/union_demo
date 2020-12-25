@@ -29,7 +29,6 @@ public class GlobalExceptionHandler {
             res.setCode(CodeEnum.SYS_ERROR.getCode());
             res.setMessage(CodeEnum.SYS_ERROR.getMessgae());
         }
-
         return res;
     }
 }
