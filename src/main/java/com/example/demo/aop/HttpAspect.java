@@ -1,5 +1,9 @@
 package com.example.demo.aop;
 
+import com.example.demo.enums.CodeEnum;
+import com.example.demo.exceptions.BusinessException;
+import com.example.demo.utils.Md5Util;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -28,8 +32,13 @@ public class HttpAspect {
     ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     //配置切入点
-    @Pointcut("execution(public * com.example.demo.controller.UserController.*(..))")
+    @Pointcut("execution(public * com.example.demo.controller.userandstudent.UserController.*(..))")
     public void log() {
+
+    }
+
+    @Pointcut("execution(public * com.example.demo.controller.userandstudent.*.*(..))")
+    public void login() {
 
     }
 
@@ -72,5 +81,19 @@ public class HttpAspect {
     @AfterReturning(returning = "object", pointcut = "log()")
     public void doAfterReturning(Object object) {
         logger.info("response={}",object.toString());
+    }
+
+    @Before("login()")
+    public Boolean doBeforeService(JoinPoint joinPoint) {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        String token = request.getHeader("accessToken");
+        if (StringUtils.isNotBlank(token)) {
+            boolean verify = Md5Util.verify(token);
+            if (verify) {
+                return true;
+            }
+        }
+        throw new BusinessException(CodeEnum.NULL_LOGIN_INFORMATION);
     }
 }

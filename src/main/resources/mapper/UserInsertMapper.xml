@@ -8,4 +8,8 @@
             (#{item.userName,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR})
         </foreach>
     </insert>
+
+    <select id="queryUserByUserNameAndPassword" resultType="com.example.demo.entity.localtest.UserDO">
+        SELECT * FROM user_do WHERE user_name = #{userName} AND password = #{password}
+    </select>
 </mapper>

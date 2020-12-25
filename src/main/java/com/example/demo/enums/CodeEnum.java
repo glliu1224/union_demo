@@ -3,7 +3,8 @@ package com.example.demo.enums;
 public enum CodeEnum {
     OK(200,"成功"),
     VALUE_NULL(300,"值为空"),
-    SYS_ERROR(500,"系统异常")
+    SYS_ERROR(500,"系统异常"),
+    NULL_LOGIN_INFORMATION(501,"未查询到登录信息")
     ;
 
     private Integer code;

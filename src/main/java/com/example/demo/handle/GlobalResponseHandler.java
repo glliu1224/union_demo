@@ -1,7 +1,10 @@
 package com.example.demo.handle;
 
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.example.demo.vo.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -19,6 +22,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Slf4j
 @ControllerAdvice(basePackages = {"com.example.demo.controller"})
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
+
+    @Bean
+    public HttpMessageConverters custHttpMessageConverter() {
+        return new HttpMessageConverters(new FastJsonHttpMessageConverter());
+    }
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         //判断支持的类型因为我们定义的BaseResponse里面的data可能是任何类型，这里就不判断同一放过
@@ -26,6 +34,11 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
         return true;
     }
 
+    /**
+     *此处对返回数据做统一处理，在返回数据时，返回String类型数据会报错Result cannot be cast to java.lang.String
+     * 原因是，如果接口返回的是String类型数据，Spring会使用StringHttpMessageConvert来处理返回体
+     * 但是此处变成了Result.message,是一个对象，导致类型转换失败
+     */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse serverHttpResponse) {
         log.info("请求返回数据类型Class={}", body.getClass().getName());

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.userandstudent;
 
 import com.example.demo.service.StudentDOService;
 import com.example.demo.service.UserInsertService;
