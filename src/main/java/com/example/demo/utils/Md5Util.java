@@ -6,8 +6,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,9 +13,9 @@ import java.util.regex.Pattern;
 public class Md5Util {
 
     /**
-     * 过期时间15分钟
+     * 过期时间120分钟
      */
-    private static final long EXPIRE_TIME = 15 * 60 * 1000;
+    private static final long EXPIRE_TIME = 120 * 60 * 1000;
 
     /**
      * token
