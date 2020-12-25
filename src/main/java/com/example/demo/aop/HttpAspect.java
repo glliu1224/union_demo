@@ -58,7 +58,7 @@ public class HttpAspect {
         //方法参数
         logger.info("args={}",joinPoint.getArgs());
         //此处可以执行入库操作等
-        executorService.execute(new Runnable() {
+        /*executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -68,7 +68,7 @@ public class HttpAspect {
                 }
                 logger.info("入库操作完成");
             }
-        });
+        });*/
     }
 
     //后置通知，在目标方法(切入点)执行之后执行
@@ -83,7 +83,7 @@ public class HttpAspect {
         logger.info("response={}",object.toString());
     }
 
-    @Before("login()")
+   /* @Before("login()")
     public Boolean doBeforeService(JoinPoint joinPoint) {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
@@ -95,5 +95,5 @@ public class HttpAspect {
             }
         }
         throw new BusinessException(CodeEnum.NULL_LOGIN_INFORMATION);
-    }
+    }*/
 }

@@ -31,6 +31,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     public HttpMessageConverters custHttpMessageConverter() {
         return new HttpMessageConverters(new FastJsonHttpMessageConverter());
     }
+
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         //判断支持的类型因为我们定义的BaseResponse里面的data可能是任何类型，这里就不判断同一放过

@@ -13,4 +13,6 @@ public interface UserService {
     void insertUserBatch();
 
     List<User> findUserByKeyWord(String keyWord);
+
+    String testYml();
 }

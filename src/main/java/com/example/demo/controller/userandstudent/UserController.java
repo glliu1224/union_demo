@@ -17,23 +17,42 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 根据ID获取用户，查询user表
+     * @param id
+     * @return
+     */
     @GetMapping("/getUser")
     public User getUser(@RequestParam("id") Integer id) {
         return userService.getUser(id);
     }
 
+    /**
+     * 插入数据--单条  user表
+     * @param userVO
+     * @return
+     */
     @PostMapping("/insertUser")
     public String insertUser(@RequestBody UserVO userVO) {
         userService.insertUser(userVO);
         return "成功";
     }
 
+    /**
+     * 批量插入数据  user表
+     * @return
+     */
     @PostMapping("/insertUserBatch")
     public String insertUserBatch() {
         userService.insertUserBatch();
         return "成功";
     }
 
+    /**
+     * 模糊查询email以***结尾的用用户
+     * @param keyWord
+     * @return
+     */
     @GetMapping("/getUserEnd")
     public List<User> getUserEnd(@RequestParam("keyWord") String keyWord) {
         return userService.findUserByKeyWord(keyWord);
@@ -45,12 +64,20 @@ public class UserController {
         System.out.println("上面有异常");
     }
 
+    /**
+     * 切面测试
+     * @return
+     */
     @GetMapping("firstAop")
     public String firstAop() {
         this.secondAop();
         return "first";
     }
 
+    /**
+     * 切面测试
+     * @return
+     */
     @GetMapping("secondAop")
     public String secondAop() {
         return "second";
@@ -63,6 +90,11 @@ public class UserController {
             GCEntity gc = new GCEntity();
             list.add(new GCEntity());
         }
+    }
+
+    @GetMapping("/testYml")
+    public String testYml() {
+        return userService.testYml();
     }
 
 }

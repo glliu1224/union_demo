@@ -7,6 +7,7 @@ import com.example.demo.service.abstracts.Observer;
 import com.example.demo.utils.GeneratorUtil;
 import com.example.demo.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -20,6 +21,9 @@ public class UserServiceImpl extends Observer<UserVO> implements UserService {
 
     BlockingQueue queue = new ArrayBlockingQueue(5);
     Executor executor = new ThreadPoolExecutor(4,4, 5,TimeUnit.MILLISECONDS,queue);
+
+    @Value("${value}")
+    private String value;
 
     @Autowired
     private UserMapper userMapper;
@@ -62,6 +66,11 @@ public class UserServiceImpl extends Observer<UserVO> implements UserService {
             return Collections.emptyList();
         }
         return users;
+    }
+
+    @Override
+    public String testYml() {
+        return value;
     }
 
 
