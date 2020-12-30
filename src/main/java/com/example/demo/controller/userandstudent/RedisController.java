@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.*;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.*;
 
 @RestController
@@ -29,13 +28,11 @@ public class RedisController {
         stringRedisTemplate.opsForValue().set("int", "1");
         //使用运算
         stringRedisTemplate.opsForValue().increment("int", 1);
-
         Map<String, Object> hash = new HashMap<>();
         hash.put("field1", "value1");
         hash.put("field2", "value2");
         stringRedisTemplate.opsForHash().putAll("hash2", hash);  //将Hashmap存储到redis中
         stringRedisTemplate.opsForHash().put("hash2", "field3", "value3");
-
         //绑定散列操作的 key,这样可以连续对同一个散列数据类型进行操作
         BoundHashOperations hashOps = stringRedisTemplate.boundHashOps("hash2");
         hashOps.delete("field2", "field1"); //删除元素
@@ -52,23 +49,17 @@ public class RedisController {
         stringRedisTemplate.opsForList().leftPushAll("list1", "v2","v4","v6","v8","v10");
         //链表从左到右的顺序为v1, v3, v5, v7, v9
         stringRedisTemplate.opsForList().rightPushAll("list2", "v1","v3","v5","v7","v9");
-
         //绑定list2操作链表
         BoundListOperations listOps = stringRedisTemplate.boundListOps("list2");
         Object result1 = listOps.rightPop();//从右边弹出一个成员
         log.info("list2的最右边元素为: "+result1.toString());
-
         Object result2 = listOps.index(1); //获取定位元素, 下标从0开始
         log.info("list2下标为1的元素为"+result2.toString());
-
         listOps.leftPush("v0"); //从左边插入链表
-
         Long size = listOps.size();//求链表长
         log.info("list2的长度为: "+size);
-
         List element = listOps.range(0, size-2); //求链表区间成员
         log.info("list2从0到size-2的元素依次为: "+element.toString());
-
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
@@ -79,29 +70,23 @@ public class RedisController {
         //重复的元素不会被插入
         stringRedisTemplate.opsForSet().add("set1", "v1","v1","v3","v5","v7","v9");
         stringRedisTemplate.opsForSet().add("set2", "v2","v4","v6","v5","v10","v10");
-
         //绑定sert1集合操作
         BoundSetOperations setOps = stringRedisTemplate.boundSetOps("set1");
         setOps.add("v11", "v13");
         setOps.remove("v1", "v3");
         Set set = setOps.members();//返回所有元素
         log.info("集合中所有元素: "+set.toString());
-
         Long size = setOps.size();//求成员数
         log.info("集合长度: "+String.valueOf(size));
-
         Set inner = setOps.intersect("set2"); //求交集
         setOps.intersectAndStore("set2", "set1_set2");//求交集并用新的集合保存
         log.info("集合的交集: "+inner.toString());
-
         Set diff = setOps.diff("set2"); //求差集
         setOps.diffAndStore("set2","set1-set2"); //求差集并用新的集合保存
         log.info("集合的差集: "+diff.toString());
-
         Set union = setOps.union("set2"); //求并集
         setOps.unionAndStore("set2", "set1=set2"); //求并集并用新的集合保存
         log.info("集合的并集: "+union.toString());
-
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
@@ -129,38 +114,30 @@ public class RedisController {
         zSetOps.add("value10", 0.26);
         Set<String> setRange = zSetOps.range(1,6);
         log.info("下标下1-6的set: " + setRange.toString());
-
         //按分数排序获取有序集合
         Set<String> setScore = zSetOps.rangeByScore(0.2, 0.6);
         log.info("按分数排序获取有序集合: "+ setScore.toString());
-
         //定义值范围
         RedisZSetCommands.Range range = new RedisZSetCommands.Range();
         range.gt("value3"); //大于value3
         //range.gte("value3"); //大于等于value3
         //range.lt("value8"); //小于value8
         range.lte("value8"); //小于等于value8
-
         //按值排序, 注意这个排序是按字符串排序
         Set<String> setLex = zSetOps.rangeByLex(range);
         log.info("按值排序: "+setLex.toString());
-
         zSetOps.remove("value9", "value2");  //删除元素
         Double score = zSetOps.score("value8"); //求分数
         log.info("求value8的分数: "+score);
-
         //在下标区间 按分数排序, 同时返回value和score
         Set<ZSetOperations.TypedTuple<String>> rangeSet = zSetOps.rangeWithScores(1,6);
         log.info("在下标区间 按分数排序, 同时返回value和score:  "+rangeSet.toString());
-
         //在下标区间 按分数排序, 同时返回value和score
         Set<ZSetOperations.TypedTuple<String>> scoreSet = zSetOps.rangeByScoreWithScores(1,6);
         log.info("在下标区间 按分数排序, 同时返回value和score:  "+scoreSet.toString());
-
         //按从大到小排序
         Set<String> reverseSet = zSetOps.reverseRange(2, 8);
         log.info("按从大到小排序: "+reverseSet.toString());
-
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
@@ -169,7 +146,6 @@ public class RedisController {
     @PutMapping("/multi")
     public Map<String, Object> testMulti(){
         stringRedisTemplate.opsForValue().set("key1", "value1");
-
         /*List list = (List) stringRedisTemplate.execute((RedisOperations operations)->{
             operations.watch("key1");
             operations.multi();

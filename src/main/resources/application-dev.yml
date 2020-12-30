@@ -15,6 +15,12 @@ spring:
     host: localhost
     port: 6379
     password: 1234
+  kafka:
+    consumer:
+      bootstrap-servers: 192.168.137.128:9092
+      enable-auto-commit: true
+      auto-offset-reset: latest
+      group-id: test
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
