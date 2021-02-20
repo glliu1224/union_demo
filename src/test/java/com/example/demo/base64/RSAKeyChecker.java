@@ -7,6 +7,7 @@ import org.junit.platform.commons.util.StringUtils;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.nio.charset.Charset;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
@@ -74,4 +75,11 @@ public class RSAKeyChecker {
             System.out.println("获取到的随机数:" + x);
         }
     }
+
+    @Test
+    public void charsetTest() {
+        Charset charset = Charset.defaultCharset();
+        System.out.println("编码格式:" + charset.name());
+    }
+
 }

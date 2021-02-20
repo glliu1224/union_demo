@@ -1,13 +1,16 @@
 package com.example.demo.aop;
 
+import com.example.demo.entity.UserRequestLog;
 import com.example.demo.enums.CodeEnum;
 import com.example.demo.exceptions.BusinessException;
+import com.example.demo.mapper.UserRequestLogMapper;
 import com.example.demo.utils.Md5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -31,13 +34,16 @@ public class HttpAspect {
 
     ExecutorService executorService = Executors.newFixedThreadPool(4);
 
+    @Autowired
+    private UserRequestLogMapper userRequestLogMapper;
+
     //配置切入点
-    @Pointcut("execution(public * com.example.demo.controller.userandstudent.UserController.*(..))")
+    @Pointcut("execution(public * com.example.demo.controller.login.*.*(..))")
     public void log() {
 
     }
 
-    @Pointcut("execution(public * com.example.demo.controller.userandstudent.*.*(..))")
+    @Pointcut("execution(public * com.example.demo.controller.login.*.*(..))")
     public void login() {
 
     }
@@ -58,32 +64,27 @@ public class HttpAspect {
         //方法参数
         logger.info("args={}",joinPoint.getArgs());
         //此处可以执行入库操作等
-        /*executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                logger.info("入库操作完成");
-            }
-        });*/
+        UserRequestLog userRequestLog = new UserRequestLog();
+        userRequestLog.setUrl(request.getRequestURL().toString());
+        userRequestLog.setMethod(request.getMethod());
+        userRequestLog.setParameters(joinPoint.getArgs());
+        userRequestLogMapper.insert(userRequestLog);
     }
 
     //后置通知，在目标方法(切入点)执行之后执行
     @After("log()")
     public void doAfter() {
         logger.info("doAfter={}", "end");
+
     }
 
     //环绕通知,得到response返回的数据，returning代表切入点方法返回的数据
-    @AfterReturning(returning = "object", pointcut = "log()")
-    public void doAfterReturning(Object object) {
-        logger.info("response={}",object.toString());
+    @AfterReturning(returning = "joinPoint", pointcut = "log()")
+    public void doAfterReturning(JoinPoint joinPoint) {
+        logger.info("response={}",joinPoint.toString());
     }
 
-   /* @Before("login()")
+    /*@Before("login()")
     public Boolean doBeforeService(JoinPoint joinPoint) {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();

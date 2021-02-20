@@ -42,4 +42,12 @@ public class NodeCacheTest extends CuratorStandaloneBase{
         byte[] bytes = curatorFramework.getData().forPath(NODE_CACHE);
         log.info("data:{}", new String(bytes));
     }
+
+    public static void main(String[] args) {
+        String a = "1";
+        String b = "1";
+        System.out.println("获取到结果是:" + a == b);
+        System.out.println("a的哈希值" + a.hashCode());
+        System.out.println("b的哈希值" + b.hashCode());
+    }
 }
