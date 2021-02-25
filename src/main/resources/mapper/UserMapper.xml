@@ -28,4 +28,12 @@
     <select id="findCount" resultType="java.lang.Integer">
         SELECT count(*) FROM user WHERE is_valid = 1
     </select>
+
+    <update id="updateById">
+        UPDATE user SET `address` = '辽宁省象牙山村' WHERE id = #{id}
+    </update>
+
+    <update id="updateByUserName">
+        UPDATE user SET `address` = '辽宁省象牙山村' WHERE `user_name` = #{userName}
+    </update>
 </mapper>

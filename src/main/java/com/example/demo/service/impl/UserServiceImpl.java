@@ -9,6 +9,7 @@ import com.example.demo.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
@@ -28,6 +29,7 @@ public class UserServiceImpl extends Observer<UserVO> implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
     public User getUser(Integer id) {
         return userMapper.findUserById(id);
     }
@@ -71,6 +73,22 @@ public class UserServiceImpl extends Observer<UserVO> implements UserService {
     @Override
     public String testYml() {
         return value;
+    }
+
+    @Override
+    @Transactional
+    public void transactional(Integer first,Integer second,String firstName,String secondName) {
+        userMapper.updateById(first);
+        this.updateAddressByUserName(firstName,secondName);
+        int i = 1 / 0;
+        userMapper.updateById(second);
+    }
+
+    @Override
+    @Transactional
+    public void updateAddressByUserName(String first,String second) {
+        userMapper.updateByUserName(first);
+        userMapper.updateByUserName(second);
     }
 
 

@@ -18,7 +18,6 @@ public class DemoApplication {
 
 	/**
 	 * springboot启动类中创建filter实例
-	 * @return
 	 */
 	@Bean
 	public FilterRegistrationBean sessionFilter() {

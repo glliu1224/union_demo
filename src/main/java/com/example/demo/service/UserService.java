@@ -15,4 +15,8 @@ public interface UserService {
     List<User> findUserByKeyWord(String keyWord);
 
     String testYml();
+
+    void transactional(Integer first,Integer second,String firstName,String secondName);
+
+    void updateAddressByUserName(String first,String second);
 }

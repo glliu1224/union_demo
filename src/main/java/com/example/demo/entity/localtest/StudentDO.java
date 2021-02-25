@@ -7,6 +7,9 @@ import java.util.Date;
 @Data
 public class StudentDO {
 
+    /**
+     * 学生ID
+     */
     private Integer stuId;
 
     private String name;

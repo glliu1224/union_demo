@@ -97,4 +97,13 @@ public class UserController {
         return userService.testYml();
     }
 
+    @GetMapping("/transactional")
+    public String transactional(@RequestParam Integer first,
+                                @RequestParam Integer second,
+                                @RequestParam String firstName,
+                                @RequestParam String secondName) {
+        userService.transactional(first,second,firstName,secondName);
+        return "请求完成";
+    }
+
 }

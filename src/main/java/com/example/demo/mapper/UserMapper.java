@@ -20,4 +20,8 @@ public interface UserMapper {
     List<UserVO> findUserByLength(@Param("start") int start,@Param("end") int end);
 
     int findCount();
+
+    void updateById(@Param("id") Integer first);
+
+    void updateByUserName(@Param("userName") String first);
 }
