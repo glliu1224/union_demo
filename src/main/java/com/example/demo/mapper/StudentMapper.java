@@ -1,6 +1,9 @@
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Student;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,6 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+
+    void insertBatch(@Param("list") List<Student> list);
 }

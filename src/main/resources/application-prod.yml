@@ -7,7 +7,7 @@ spring:
     username: root
     url: jdbc:mysql://127.0.0.1:3306/localtest?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.jdbc.Driver
-    password: 123456
+    password: root
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:

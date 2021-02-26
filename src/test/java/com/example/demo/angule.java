@@ -3,6 +3,7 @@ package com.example.demo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openjdk.jol.info.ClassLayout;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -69,4 +70,80 @@ public class angule {
         int i = integer.get();
         System.out.println("初始化的值:" + i1);
     }
+
+    /**
+     * 对象头信息
+     */
+    @Test
+    public void jolSample() {
+        System.out.println("Object类:");
+        ClassLayout layOut = ClassLayout.parseInstance(new Object());
+        System.out.println(layOut.toPrintable());
+
+        System.out.println("int数组:");
+        ClassLayout intArrayLayout = ClassLayout.parseInstance(new int[]{});
+        System.out.println(intArrayLayout.toPrintable());
+
+        System.out.println("内部类A:");
+        ClassLayout aLayout = ClassLayout.parseInstance(new A());
+        System.out.println(aLayout.toPrintable());
+    }
+
+    /**
+     * 逃逸分析
+     */
+    public void analyse() {
+
+    }
+
+    public static class A{
+        int id;
+        String name;
+        byte aByte;
+        Object object;
+    }
+
+    public static void main(String[] args) {
+        long a1 = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+            alloc();
+        }
+        long a2 = System.currentTimeMillis();
+        System.out.println("cost" + (a2 - a1) + "ms");
+        try {
+            Thread.sleep(100000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void alloc() {
+
+    }
+
+    public static StringBuffer createStringBuffer(String a, String b) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(a);
+        sb.append(b);
+        return sb;
+    }
+
+    public static StringBuffer createStringBuffer(StringBuilder a, StringBuilder b) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(a);
+        sb.append(b);
+        return sb;
+    }
+
+//    public static String createStringBuffer(String a, String b) {
+//        StringBuffer sb = new StringBuffer();
+//        sb.append(a);
+//        sb.append(b);
+//        return sb.toString();
+//    }
+
+    public static class User{
+
+    }
+
 }

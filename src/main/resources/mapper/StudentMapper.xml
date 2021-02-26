@@ -160,4 +160,12 @@
       is_valid = #{isValid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="insertBatch">
+    INSERT INTO student(`name`,`height`,`weight`,`age`,`address`,`school_id`,`phone`,`stu_number`,`sex`)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.name,jdbcType=VARCHAR},#{item.height,jdbcType=INTEGER},#{item.weight,jdbcType=INTEGER},#{item.age,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.schoolId,jdbcType=INTEGER},#{item.phone,jdbcType=VARCHAR},#{item.stuNumber,jdbcType=VARCHAR},#{item.sex,jdbcType=INTEGER})
+    </foreach>
+  </insert>
 </mapper>

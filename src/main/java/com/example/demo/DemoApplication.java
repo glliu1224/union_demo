@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.filter.SessionFilter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,14 +18,14 @@ public class DemoApplication {
 	/**
 	 * springboot启动类中创建filter实例
 	 */
-	@Bean
-	public FilterRegistrationBean sessionFilter() {
-		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		SessionFilter sessionFilter = new SessionFilter();
-		registrationBean.setFilter(sessionFilter);
-		registrationBean.setOrder(Integer.MIN_VALUE);
-		registrationBean.addUrlPatterns("/*");
-		return registrationBean;
-	}
+//	@Bean
+//	public FilterRegistrationBean sessionFilter() {
+//		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//		SessionFilter sessionFilter = new SessionFilter();
+//		registrationBean.setFilter(sessionFilter);
+//		registrationBean.setOrder(Integer.MIN_VALUE);
+//		registrationBean.addUrlPatterns("/*");
+//		return registrationBean;
+//	}
 
 }
